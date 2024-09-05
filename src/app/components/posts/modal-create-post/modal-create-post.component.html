@@ -1,0 +1,42 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Create post</h5>
+    <button type="button" class="btn-close border-0 shadow-none" aria-label="Cerrar" (click)="closeModal()"></button>
+  </div>
+
+  <div class="modal-body">
+    <div class="rounded-2 bg-gray p-2">
+      <textarea class="form-control" placeholder="What are you thinking?" aria-label="With textarea" [(ngModel)]="text" rows="4"></textarea>
+
+      <div ngbDropdown class="position-absolute" style="bottom: 2rem; right: 2rem;">
+        <button role="button" class="btn btn-dark emoji-dropdown rounded-circle" id="emojiDropdown" aria-controls="navbarContent" ngbDropdownToggle>
+          <i class="fa-regular fa-face-smile fs-4"></i>
+        </button>
+        <emoji-mart
+          ngbDropdownMenu
+          aria-labelledby="emojiDropdown"
+          class="btn-secondary p-0"
+          title="Pick your emoji…"
+          emoji="point_up"
+          (emojiSelect)="addEmoji($event)"
+        ></emoji-mart>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer justify-content-between">
+    <div class="d-flex gap-3 align-items-center rounded-5 border border-secondary px-3">
+      <span>Agrega</span>
+      <div>
+        <button type="button" class="btn btn-secondary border-0 rounded-circle">
+          <i class="fa-solid fa-image"></i>
+        </button>
+        <button type="button" class="btn btn-secondary border-0 rounded-circle">
+          <i class="fa-solid fa-circle-play"></i>
+        </button>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary rounded-5 px-4 fw-bold text-black" (click)="closeModal()">Post</button>
+  </div>
+</ng-template>
+

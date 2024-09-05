@@ -1,1 +1,113 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+// $body-color: white;
+// $primary: #1ed760;
+// $primary-light: #1ed760;
+
+// $body-bg: #1d1d1b;
+// $body-secondary-bg: #1f1f1f;
+// $body-tertiary-bg: #2b2b2b;
+
+* {
+  margin: 0;
+  padding: 0;
+
+  --body-color: white;
+  --primary: #1ed760;
+  --primary-light: #2ee06c;
+
+  --body-bg: #1d1d1b;
+  --body-secondary-bg: #1f1f1f;
+  --body-tertiary-bg: #2b2b2b;
+
+  --color-grayscale800: #333333;
+  --color-grayscale700: #393936;
+  --color-grayscale600: #686868;
+  --color-grayscale500: #999999;
+  --color-grayscale400: #CCCCCC;
+  --color-grayscale300: #DDDDDD;
+  --color-grayscale200: #EEEEEE;
+  --color-grayscale100: #FFFFFF;
+}
+
+body {
+  color: var(--body-color);
+  background-color: var(--body-bg);
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary);
+  border-color: 1px solid var(--primary);
+  &:hover {
+    background-color: var(--primary-light);
+    border-color: 1px solid var(--primary-light);
+  }
+  &:focus {
+    background-color: var(--primary-light);
+    border-color: 1px solid var(--primary-light);
+  }
+  &:active {
+    background-color: var(--primary-light) !important;
+    border-color: 1px solid var(--primary-light) !important;
+  }
+}
+.btn-secondary {
+  background-color: var(--body-tertiary-bg);
+  border-color: 1px solid var(--body-tertiary-bg);
+  &:hover {
+    background-color: var(--color-grayscale800);
+    border-color: 1px solid var(--color-grayscale800);
+  }
+  &:focus {
+    background-color: var(--color-grayscale800);
+    border-color: 1px solid var(--color-grayscale800);
+  }
+  &:active {
+    background-color: var(--color-grayscale800) !important;
+    border-color: 1px solid var(--color-grayscale800) !important;
+  }
+}
+
+/* Background colors */
+.bg-primary {
+  background-color: var(--primary);
+}
+.bg-gray {
+  background-color: var(--body-tertiary-bg);
+}
+.bg-gray-light {
+  background-color: var(--color-grayscale700);
+}
+
+/* Resets */
+.form-control {
+  background-color: var(--color-grayscale700);
+  color: var(--color-grayscale400);
+  border: none;
+  &::placeholder {
+    color: var(--color-grayscale500);
+  }
+  &:focus {
+    background-color: var(--color-grayscale700);
+    color: var(--color-grayscale400);
+    border: none;
+    box-shadow: 0 0 0 0.25rem var(--primary);
+  }
+}
+.modal-content {
+  background-color: var(--body-tertiary-bg);
+  .modal-header {
+    border-bottom: 1px solid var(--color-grayscale600);
+  }
+  .modal-footer {
+    border-top: none;
+  }
+}
+.custom-swal-alert {
+  color: var(--body-color);
+  background-color: var(--body-bg);
+}
