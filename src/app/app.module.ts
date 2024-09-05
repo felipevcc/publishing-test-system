@@ -10,7 +10,7 @@ import { ModalCreatePostComponent } from './components/posts/modal-create-post/m
 import { PostCardComponent } from './components/posts/post-card/post-card.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     NgbModule,
     PickerModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

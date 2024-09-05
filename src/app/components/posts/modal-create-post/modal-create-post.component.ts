@@ -1,5 +1,9 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Attachment } from 'src/app/models/post/attachment.interface';
+import { Post } from 'src/app/models/post/post.interface';
+import { PostService } from 'src/app/services/post.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,11 +13,23 @@ import Swal from 'sweetalert2';
 })
 export class ModalCreatePostComponent {
   @ViewChild('content') content!: TemplateRef<any>;
+  @ViewChild('imageInput') imageInput!: any;
+  @ViewChild('videoInput') videoInput!: any;
+  @ViewChild('uploadInput') uploadInput!: any;
 
   modalRef: NgbModalRef | undefined;
-  text: string = '';
+  postForm: FormGroup;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private modalService: NgbModal,
+    private fb: FormBuilder,
+    private postService: PostService
+  ) {
+    this.postForm = this.fb.group({
+      text: [''],
+      attachments: this.fb.array([])
+    });
+  }
 
   ngOnInit() {}
 
@@ -24,13 +40,13 @@ export class ModalCreatePostComponent {
       size: 'lg',
       centered: true
     });
-    this.modalRef.hidden.subscribe(() => this.resetForm());
   }
 
   closeModal() {
     if (this.isEmptyForm()) {
-      console.log("close");
-      return this.modalRef?.close();
+      this.modalRef?.close();
+      this.resetForm();
+      return;
     }
     Swal.fire({
       icon: 'question',
@@ -43,28 +59,75 @@ export class ModalCreatePostComponent {
         popup: 'custom-swal-alert'
       }
     }).then(res => {
-      console.log("response", res.isConfirmed);
       if (res.isConfirmed) {
         this.modalRef?.close();
+        this.resetForm();
       }
     });
   }
 
   addEmoji(event: any) {
     const { emoji } = event;
-    this.text += emoji.native;
+    const currentFormText = this.postForm.get('text')?.value || '';
+    this.postForm.get('text')?.setValue(currentFormText + emoji.native);
+  }
+
+  get attachments(): FormArray {
+    return this.postForm.get('attachments') as FormArray;
+  }
+
+  onPushFile(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const fileType = file.type.split('/')[0];
+    if (fileType != 'image' && fileType != 'video') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Error',
+        text: 'El tipo de archivo no es valido.',
+        customClass: {
+          popup: 'custom-swal-alert'
+        }
+      });
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const attachment: Attachment = {
+        url: e.target.result,
+        file: file,
+        type: fileType
+      };
+      this.attachments.push(this.fb.group(attachment));
+    };
+    reader.readAsDataURL(file);
   }
 
   isEmptyForm(): boolean {
-    if (this.text == '') {
+    if (!this.attachments.controls.length && this.postForm.get('text')?.value == '') {
       return true;
     }
     return false;
   }
 
+  hasImageAttachment(): boolean {
+    return this.attachments.controls.some(control => control.value.type === 'image');
+  }
+
   resetForm() {
-    console.log("resetForm");
-    this.text = '';
+    this.postForm.reset({
+      text: '',
+    });
+    this.attachments.clear();
+  }
+
+  sendPost() {
+    const post: Post = this.postForm.value;
+    this.postService.addPost(post);
+    this.modalRef?.close();
+    this.resetForm();
   }
 
 }

@@ -1,42 +1,89 @@
 <ng-template #content let-modal>
+
+  <!-- Modal header -->
   <div class="modal-header">
     <h5 class="modal-title">Create post</h5>
     <button type="button" class="btn-close border-0 shadow-none" aria-label="Cerrar" (click)="closeModal()"></button>
   </div>
 
-  <div class="modal-body">
-    <div class="rounded-2 bg-gray p-2">
-      <textarea class="form-control" placeholder="What are you thinking?" aria-label="With textarea" [(ngModel)]="text" rows="4"></textarea>
+  <div class="modal-body d-flex flex-column gap-2">
 
-      <div ngbDropdown class="position-absolute" style="bottom: 2rem; right: 2rem;">
-        <button role="button" class="btn btn-dark emoji-dropdown rounded-circle" id="emojiDropdown" aria-controls="navbarContent" ngbDropdownToggle>
-          <i class="fa-regular fa-face-smile fs-4"></i>
+    <div *ngIf="attachments.controls.length" class="attachments-grid-container">
+
+      <!-- Attachment header buttons -->
+      <div class="d-flex gap-2 position-absolute ms-2 mt-2" style="z-index: 10;">
+        <button type="button" class="btn btn-secondary-light rounded-circle border-0 fs-5" (click)="uploadInput.click()">
+          <i class="fa-solid fa-plus"></i>
         </button>
-        <emoji-mart
-          ngbDropdownMenu
-          aria-labelledby="emojiDropdown"
-          class="btn-secondary p-0"
-          title="Pick your emoji…"
-          emoji="point_up"
-          (emojiSelect)="addEmoji($event)"
-        ></emoji-mart>
+        <input type="file" #uploadInput accept="image/*,video/*" (change)="onPushFile($event)" class="d-none">
+        <button *ngIf="hasImageAttachment()" type="button" class="btn btn-secondary-light rounded-5 border-0 fs-5 px-4">
+          <i class="fa-regular fa-pen-to-square me-2"></i>
+          <span>Edit</span>
+        </button>
+      </div>
+
+      <!-- Attachments container -->
+      <div class="attachments-grid">
+        <div
+          *ngFor="let attachment of attachments.controls.slice(0, 4); let i = index"
+          class="grid-item">
+          <ng-container [ngSwitch]="attachment.value.type">
+            <!-- Image -->
+            <div *ngSwitchCase="'image'" class="h-100">
+              <img [src]="attachment.value.url" class="card-img-top rounded-3 h-100" alt="Attachment Image" style="object-fit: cover;">
+            </div>
+            <!-- Video -->
+            <div *ngSwitchCase="'video'" class="h-100">
+              <video [src]="attachment.value.url" controls class="card-img-top rounded-3 h-100"></video>
+            </div>
+          </ng-container>
+          <div *ngIf="i === 3 && attachments.controls.length > 4" class="overlay">
+            <span class="overlay-text">+{{ attachments.controls.length - 4 }}</span>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- Post text container -->
+    <form [formGroup]="postForm">
+      <div class="rounded-2 bg-gray">
+        <textarea class="form-control" formControlName="text" placeholder="What are you thinking?" aria-label="With textarea" rows="4"></textarea>
+
+        <div ngbDropdown class="position-absolute" style="bottom: 1.5rem; right: 1.5rem;">
+          <button role="button" class="btn btn-secondary-transparent border-0 emoji-dropdown rounded-circle" id="emojiDropdown" aria-controls="navbarContent" ngbDropdownToggle>
+            <i class="fa-regular fa-face-smile fs-4"></i>
+          </button>
+          <emoji-mart
+            ngbDropdownMenu
+            aria-labelledby="emojiDropdown"
+            class="p-0"
+            title="Pick your emoji…"
+            emoji="point_up"
+            (emojiSelect)="addEmoji($event)"
+          ></emoji-mart>
+        </div>
+      </div>
+    </form>
   </div>
 
+  <!-- Action footer buttons -->
   <div class="modal-footer justify-content-between">
     <div class="d-flex gap-3 align-items-center rounded-5 border border-secondary px-3">
       <span>Agrega</span>
       <div>
-        <button type="button" class="btn btn-secondary border-0 rounded-circle">
+        <button type="button" class="btn btn-secondary-transparent border-0 rounded-circle" (click)="imageInput.click()">
           <i class="fa-solid fa-image"></i>
         </button>
-        <button type="button" class="btn btn-secondary border-0 rounded-circle">
+        <input type="file" #imageInput accept="image/*" (change)="onPushFile($event)" class="d-none">
+
+        <button type="button" class="btn btn-secondary-transparent border-0 rounded-circle" (click)="videoInput.click()">
           <i class="fa-solid fa-circle-play"></i>
         </button>
+        <input type="file" #videoInput accept="video/*" (change)="onPushFile($event)" class="d-none">
       </div>
     </div>
-    <button type="button" class="btn btn-primary rounded-5 px-4 fw-bold text-black" (click)="closeModal()">Post</button>
+    <button type="button" class="btn btn-primary rounded-5 px-4 fw-bold text-black" (click)="sendPost()">Post</button>
   </div>
 </ng-template>
+
 

@@ -21,6 +21,7 @@
 
   --body-bg: #1d1d1b;
   --body-secondary-bg: #1f1f1f;
+  --body-secondary-light-bg: #51514E;
   --body-tertiary-bg: #2b2b2b;
 
   --color-grayscale800: #333333;
@@ -71,6 +72,40 @@ body {
     border-color: 1px solid var(--color-grayscale800) !important;
   }
 }
+.btn-secondary-light {
+  color: var(--body-color);
+  background-color: var(--color-grayscale700);
+  border-color: var(--color-grayscale700);
+  &:hover {
+    background-color: var(--body-secondary-light-bg);
+    border-color: 1px solid var(--body-secondary-light-bg);
+  }
+  &:focus {
+    background-color: var(--body-secondary-light-bg);
+    border-color: 1px solid var(--body-secondary-light-bg);
+  }
+  &:active {
+    background-color: var(--body-secondary-light-bg) !important;
+    border-color: 1px solid var(--body-secondary-light-bg) !important;
+  }
+}
+.btn-secondary-transparent {
+  color: var(--body-color);
+  background-color: transparent;
+  border-color: transparent;
+  &:hover {
+    background-color: var(--body-secondary-light-bg);
+    border-color: 1px solid var(--body-secondary-light-bg);
+  }
+  &:focus {
+    background-color: var(--body-secondary-light-bg);
+    border-color: 1px solid var(--body-secondary-light-bg);
+  }
+  &:active {
+    background-color: var(--body-secondary-light-bg) !important;
+    border-color: 1px solid var(--body-secondary-light-bg) !important;
+  }
+}
 
 /* Background colors */
 .bg-primary {
@@ -83,6 +118,11 @@ body {
   background-color: var(--color-grayscale700);
 }
 
+/* Text colors */
+.text-klipclub {
+  color: var(--primary);
+}
+
 /* Resets */
 .form-control {
   background-color: var(--color-grayscale700);
@@ -90,6 +130,9 @@ body {
   border: none;
   &::placeholder {
     color: var(--color-grayscale500);
+  }
+  &:hover {
+    background-color: var(--body-secondary-light-bg);
   }
   &:focus {
     background-color: var(--color-grayscale700);
