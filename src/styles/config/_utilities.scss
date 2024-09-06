@@ -1,0 +1,20 @@
+/* Background colors */
+.bg-primary {
+  background-color: var(--primary);
+}
+.bg-gray {
+  background-color: var(--body-tertiary-bg);
+}
+.bg-gray-light {
+  background-color: var(--color-grayscale700);
+}
+
+/* Text colors */
+.text-klipclub {
+  color: var(--primary);
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+

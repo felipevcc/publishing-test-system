@@ -1,0 +1,57 @@
+/* Bootstrap inputs */
+.form-control {
+  background-color: var(--color-grayscale700);
+  color: var(--color-grayscale400);
+  border: none;
+  &::placeholder {
+    color: var(--color-grayscale500);
+  }
+  &:hover {
+    background-color: var(--body-secondary-light-bg);
+  }
+  &:focus {
+    background-color: var(--color-grayscale700);
+    color: var(--color-grayscale400);
+    border: none;
+    box-shadow: 0 0 0 0.25rem var(--primary);
+  }
+}
+
+/* Bootstrap modals */
+.modal-content {
+  background-color: var(--body-tertiary-bg);
+  .modal-header {
+    border-bottom: 1px solid var(--color-grayscale600);
+  }
+  .modal-footer {
+    border-top: none;
+  }
+}
+
+/* Sweetalert2 */
+.custom-swal-alert {
+  color: var(--body-color);
+  background-color: var(--body-bg);
+}
+
+/* Image cropper */
+.ngx-ic-cropper {
+  outline: var(--cropper-outline-color, rgba(0, 0, 0, 0.418)) solid 100vw !important;
+  .ngx-ic-resize {
+    &.ngx-ic-top,
+    &.ngx-ic-right,
+    &.ngx-ic-bottom,
+    &.ngx-ic-left {
+      &:has(.ngx-ic-square) {
+        display: none !important;
+      }
+    }
+    .ngx-ic-square {
+      border-radius: 50% !important;
+      border: none !important;
+      height: 12px !important;
+      width: 12px !important;
+      background: var(--primary) !important;
+    }
+  }
+}
