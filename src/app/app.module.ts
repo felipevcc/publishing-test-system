@@ -13,6 +13,7 @@ import { EditingAttachmentsComponent } from './components/posts/editing-attachme
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCropperComponent } from 'ngx-image-cropper';
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
     PickerModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbCarouselModule,
     ImageCropperComponent
   ],
   providers: [],

@@ -232,3 +232,28 @@ body {
   user-select: none;
 }
 
+/* Image cropper */
+.ngx-ic-cropper {
+  outline: var(--cropper-outline-color, rgba(0, 0, 0, 0.418)) solid 100vw !important;
+  .ngx-ic-resize {
+    &.ngx-ic-top,
+    &.ngx-ic-right,
+    &.ngx-ic-bottom,
+    &.ngx-ic-left {
+      &:has(.ngx-ic-square) {
+        display: none !important;
+      }
+    }
+    .ngx-ic-square {
+      border-radius: 50% !important;
+      border: none !important;
+      height: 12px !important;
+      width: 12px !important;
+      background: var(--primary) !important;
+    }
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
