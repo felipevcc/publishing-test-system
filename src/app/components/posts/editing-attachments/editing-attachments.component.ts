@@ -39,7 +39,7 @@ export class EditingAttachmentsComponent {
     this.addAttachment.emit(event);
   }
   onRemoveFile(attachment: any) {
-    const index = this.attachments.controls.findIndex(control => control.value.url === attachment.url);
+    const index = this.attachments.controls.findIndex(control => control.value.url === attachment.value.url);
     this.removeAttachment.emit(index);
   }
 

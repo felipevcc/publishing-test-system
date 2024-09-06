@@ -107,7 +107,6 @@ export class ModalCreatePostComponent {
   }
 
   saveImageChanges(event: { selectedPhotoToEdit: Attachment, croppedImage: string }) {
-    console.log("saveImageChanges2");
     const { selectedPhotoToEdit, croppedImage } = event;
     if (!selectedPhotoToEdit || !croppedImage || croppedImage == '') return;
 
