@@ -106,6 +106,20 @@ export class ModalCreatePostComponent {
     reader.readAsDataURL(file);
   }
 
+  saveImageChanges(event: { selectedPhotoToEdit: Attachment, croppedImage: string }) {
+    console.log("saveImageChanges2");
+    const { selectedPhotoToEdit, croppedImage } = event;
+    if (!selectedPhotoToEdit || !croppedImage || croppedImage == '') return;
+
+    // Update image
+    const index = this.attachments.controls.findIndex(control => control.value.url === selectedPhotoToEdit?.url);
+    if (index !== -1) {
+      this.attachments.at(index).patchValue({
+        url: croppedImage
+      });
+    }
+  }
+
   onRemoveAttachment(index: number) {
     this.attachments.removeAt(index);
   }

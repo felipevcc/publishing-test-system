@@ -1,5 +1,5 @@
 <div *ngIf="post" class="d-flex flex-column gap-2">
-  <div class="attachments-grid">
+  <div *ngIf="post.attachments && post.attachments.length" class="attachments-grid">
     <div
       *ngFor="let attachment of post.attachments.slice(0, 4); let i = index"
       class="grid-item">
@@ -18,5 +18,7 @@
       </div>
     </div>
   </div>
-  <p>{{ post.text }}</p>
+  <div *ngIf="post.text && post.text != ''">
+    <p>{{ post.text }}</p>
+  </div>
 </div>

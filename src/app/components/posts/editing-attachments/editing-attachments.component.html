@@ -39,6 +39,17 @@
     </div>
   </div>
 
+  <div *ngIf="selectedPhotoToEdit">
+    <image-cropper
+      [imageURL]="selectedPhotoToEdit.url"
+      format="png"
+      (imageCropped)="onImageCropped($event)">
+    </image-cropper>
+
+    <!-- Cropped image -->
+    <!-- <img *ngIf="croppedImage" [src]="croppedImage" alt="Cropped image" /> -->
+  </div>
+
 </div>
 
 <!-- Action footer buttons -->

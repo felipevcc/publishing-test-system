@@ -89,6 +89,6 @@
 
   </div>
 
-  <app-editing-attachments *ngIf="isViewToEdit" [attachments]="attachments" (closeEditView)="closeEditView()" (closeModal)="closeModal()" (addAttachment)="onPushFile($event)" (removeAttachment)="onRemoveAttachment($event)"></app-editing-attachments>
+  <app-editing-attachments *ngIf="isViewToEdit" [attachments]="attachments" (closeEditView)="closeEditView()" (closeModal)="closeModal()" (addAttachment)="onPushFile($event)" (removeAttachment)="onRemoveAttachment($event)" (saveImage)="saveImageChanges($event)"></app-editing-attachments>
 
 </ng-template>
