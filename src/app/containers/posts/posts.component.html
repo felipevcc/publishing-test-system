@@ -1,22 +1,16 @@
 <div class="posts-section py-5">
   <h4 class="fw-bold">KlipWall</h4>
 
-  <div class="rounded-2 bg-gray p-3" (click)="openModal()">
+  <div class="rounded-2 bg-gray p-3 mb-3" (click)="openModal()">
     <div class="form-control rounded-5 border-0">
       What are you thinking?
     </div>
   </div>
   <app-modal-create-post #modalCreatePostComponent></app-modal-create-post>
 
-  <div style="min-height: 350px;">
-    <div *ngFor="let post of posts$ | async">
-      <p>{{ post.text }}</p>
-      <div *ngFor="let attachment of post.attachments">
-        <img *ngIf="attachment.type === 'image'" [src]="attachment.url" alt="Image">
-        <video *ngIf="attachment.type === 'video'" controls>
-          <source [src]="attachment.url" type="video/mp4">
-        </video>
-      </div>
+  <div class="d-flex flex-column gap-3" style="min-height: 350px;">
+    <div *ngFor="let post of posts$ | async" class="rounded-2 bg-gray p-3">
+      <app-post-card [post]="post"></app-post-card>
     </div>
   </div>
 

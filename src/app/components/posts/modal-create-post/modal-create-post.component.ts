@@ -19,6 +19,7 @@ export class ModalCreatePostComponent {
 
   modalRef: NgbModalRef | undefined;
   postForm: FormGroup;
+  isViewToEdit: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -105,6 +106,10 @@ export class ModalCreatePostComponent {
     reader.readAsDataURL(file);
   }
 
+  onRemoveAttachment(index: number) {
+    this.attachments.removeAt(index);
+  }
+
   isEmptyForm(): boolean {
     if (!this.attachments.controls.length && this.postForm.get('text')?.value == '') {
       return true;
@@ -128,6 +133,14 @@ export class ModalCreatePostComponent {
     this.postService.addPost(post);
     this.modalRef?.close();
     this.resetForm();
+  }
+
+  // Edit view
+  openEditView() {
+    this.isViewToEdit = true;
+  }
+  closeEditView() {
+    this.isViewToEdit = false;
   }
 
 }

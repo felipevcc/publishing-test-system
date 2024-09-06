@@ -1,1 +1,22 @@
-<p>post-card works!</p>
+<div *ngIf="post" class="d-flex flex-column gap-2">
+  <div class="attachments-grid">
+    <div
+      *ngFor="let attachment of post.attachments.slice(0, 4); let i = index"
+      class="grid-item">
+      <ng-container [ngSwitch]="attachment.type">
+        <!-- Image -->
+        <div *ngSwitchCase="'image'" class="h-100">
+          <img [src]="attachment.url" class="card-img-top rounded-3 h-100" alt="Attachment Image" style="object-fit: cover;">
+        </div>
+        <!-- Video -->
+        <div *ngSwitchCase="'video'" class="h-100">
+          <video [src]="attachment.url" controls class="card-img-top rounded-3 h-100"></video>
+        </div>
+      </ng-container>
+      <div *ngIf="i === 3 && post.attachments.length > 4" class="overlay">
+        <span class="overlay-text">+{{ post.attachments.length - 4 }}</span>
+      </div>
+    </div>
+  </div>
+  <p>{{ post.text }}</p>
+</div>

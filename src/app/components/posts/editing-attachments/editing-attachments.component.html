@@ -1,0 +1,65 @@
+<!-- Modal header -->
+<div class="modal-header justify-content-between align-items-center">
+  <button *ngIf="!selectedPhotoToEdit" type="button" class="btn btn-secondary-transparent border-0 rounded-circle" (click)="closeView()">
+    <i class="fa-solid fa-chevron-left fs-5"></i>
+  </button>
+  <h5 class="modal-title">{{ selectedPhotoToEdit ? 'Edit photo' : 'Photos/videos' }}</h5>
+  <button type="button" class="btn-close border-0 shadow-none m-0" aria-label="Cerrar" (click)="closePostModal()"></button>
+</div>
+
+<div class="modal-body d-flex flex-column gap-2">
+
+  <div *ngIf="!selectedPhotoToEdit" class="attachments-edit-grid">
+    <div
+      *ngFor="let attachment of attachments.controls"
+      class="grid-item position-relative">
+
+      <div class="d-flex gap-2 position-absolute p-2 w-100 justify-content-between" style="z-index: 10;">
+        <div>
+          <button *ngIf="attachment.value.type == 'image'" type="button" class="btn btn-secondary-light rounded-5 border-0 fs-5 px-4" (click)="editImage(attachment.value)">
+            <i class="fa-regular fa-pen-to-square me-2"></i>
+            <span>Edit</span>
+          </button>
+        </div>
+        <button type="button" class="btn btn-secondary-light rounded-circle border-0 fs-5" (click)="onRemoveFile(attachment)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <ng-container [ngSwitch]="attachment.value.type">
+        <!-- Image -->
+        <div *ngSwitchCase="'image'" class="h-100">
+          <img [src]="attachment.value.url" class="card-img-top rounded-3 h-100" alt="Attachment Image" style="object-fit: cover;">
+        </div>
+        <!-- Video -->
+        <div *ngSwitchCase="'video'" class="h-100">
+          <video [src]="attachment.value.url" controls class="card-img-top rounded-3 h-100"></video>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+</div>
+
+<!-- Action footer buttons -->
+<div class="modal-footer justify-content-between">
+
+  <ng-container *ngIf="!selectedPhotoToEdit">
+    <div class="w-100 d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-secondary-transparent border-0 rounded-5 px-4 fw-bold text-klipclub" (click)="uploadInput.click()">
+        <i class="fa-solid fa-image me-2"></i>
+        <span>Add</span>
+      </button>
+      <input type="file" #uploadInput accept="image/*,video/*" (change)="onPushFile($event)" class="d-none">
+      <button type="button" class="btn btn-primary rounded-5 px-4 fw-bold text-black" (click)="closeView()">Done</button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="selectedPhotoToEdit">
+    <div class="w-100 d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-secondary-transparent border-0 rounded-5 px-4 fw-bold" (click)="closeView()">Cancel</button>
+      <button type="button" class="btn btn-primary rounded-5 px-4 fw-bold text-black" (click)="saveImageChanges()">Save</button>
+    </div>
+  </ng-container>
+
+</div>

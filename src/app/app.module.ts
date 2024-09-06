@@ -11,6 +11,7 @@ import { PostCardComponent } from './components/posts/post-card/post-card.compon
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditingAttachmentsComponent } from './components/posts/editing-attachments/editing-attachments.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     PostsComponent,
     ModalCreatePostComponent,
-    PostCardComponent
+    PostCardComponent,
+    EditingAttachmentsComponent
   ],
   imports: [
     BrowserModule,
